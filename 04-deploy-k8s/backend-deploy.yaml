@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ecommerce
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecommerce-backend-deployment
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecommerce-backend
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: ecommerce-backend
+    spec:
+      containers:
+        - image: ntdat09mister/ecommerce-backend:v1
+          imagePullPolicy: Always
+          name: ecommerce-backend
+          ports:
+            - containerPort: 8080
+              name: tcp
+              protocol: TCP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecommerce-backend-service
+  namespace: ecommerce
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: ecommerce-backend
+  type: ClusterIP
+
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ecommerce-backend-ingress
+  namespace: ecommerce
+spec:
+  ingressClassName: haproxy
+  rules:
+    - host: api-ecommerce-backend.danny.vn
+      http:
+        paths:
+          - backend:
+              service:
+                name: ecommerce-backend-service
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
