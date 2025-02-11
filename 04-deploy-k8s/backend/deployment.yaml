@@ -26,6 +26,9 @@ spec:
         app: ecommerce-backend
     spec:
       containers:
+        envFrom:
+          - secretRef:
+              name: ecommerce-backend-database-connection
         - image: ntdat09mister/ecommerce-backend:v2
           imagePullPolicy: Always
           name: ecommerce-backend
