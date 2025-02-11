@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ecommerce
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecommerce-backend-deployment
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecommerce-backend
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: ecommerce-backend
+    spec:
+      containers:
+        - image: ntdat09mister/ecommerce-backend:v2
+          imagePullPolicy: Always
+          name: ecommerce-backend
+          ports:
+            - containerPort: 8080
+              name: tcp
+              protocol: TCP
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /run/src/main/resources/application.properties
+              name: ecommerce-backend-application-properties-config-volume
+              subPath: application.properties
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: ecommerce-backend-application-properties-configmap
+          name: ecommerce-backend-application-properties-config-volume
