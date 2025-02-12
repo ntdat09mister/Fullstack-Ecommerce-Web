@@ -111,6 +111,11 @@ spec:
               protocol: TCP
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "1000m"
           volumeMounts:
             - mountPath: /run/src/main/resources/application.properties
               name: ecommerce-backend-application-properties-config-volume
