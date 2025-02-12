@@ -8,6 +8,6 @@ spec:
     apiVersion: apps/v1
     kind: deployment
     name: ecommerce-backend-deployment
-  minReplicas: 2
-  maxReplicas: 3
-  targetCPUUtilizationPercentage: 50
+  minReplicas: 1
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 80
