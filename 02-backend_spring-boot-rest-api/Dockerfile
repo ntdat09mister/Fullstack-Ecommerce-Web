@@ -12,5 +12,9 @@ FROM openjdk:17-alpine
 RUN unlink /etc/localtime;ln -s  /usr/share/zoneinfo/Asia/Ho_Chi_Minh /etc/localtime
 COPY --from=build src/target/spring-boot-ecommerce-0.0.1-SNAPSHOT.jar /run/spring-boot-ecommerce-0.0.1-SNAPSHOT.jar
 
-EXPOSE 8080                                                                                                                                      
+EXPOSE 8080
+# ## without spring.config.location - configmap, secret
+# ENTRYPOINT java -jar /run/spring-boot-ecommerce-0.0.1-SNAPSHOT.jar
+
+## with configmap, secret ##                                                                                                                                      
 ENTRYPOINT java -jar /run/spring-boot-ecommerce-0.0.1-SNAPSHOT.jar --spring.config.location=/run/src/main/resources/application.properties

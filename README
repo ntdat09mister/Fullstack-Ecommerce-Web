@@ -1,0 +1,21 @@
+# Fullstack Ecommerce Web Deployment Guide
+
+1. Images for Deployment
+Build and Push svc image to registry or pull from my Docker Hub ntdat09mister/*.
+
+2. Install and Configure MariaDB
+Install MariaDB on the target environment.
+Configure user credentials, database, and permissions.
+Execute the necessary SQL scripts to initialize the database.
+
+3. Kubernetes Deployment Process
+Create a Namespace: Define a dedicated namespace for the application.
+Set Up ConfigMap and Secret: Store environment variables and sensitive data securely.
+Deploy Services: Expose MariaDB, backend, and frontend using Kubernetes services.
+Configure Ingress: Set up an Ingress resource for external access.
+
+4. Vertify progress deploy Backend and Frontend:
+Deploy backend with database connection configurations.
+Deploy frontend, ensuring proper communication with the backend.
+
+#Good luck!
