@@ -113,9 +113,7 @@ spec:
           terminationMessagePolicy: File
           resources:
             requests:
-              cpu: "100m"
-            limits:
-              cpu: "1000m"
+              cpu: "300m"
           volumeMounts:
             - mountPath: /run/src/main/resources/application.properties
               name: ecommerce-backend-application-properties-config-volume
@@ -186,8 +184,8 @@ spec:
     apiVersion: apps/v1
     kind: deployment
     name: ecommerce-backend-deployment
-  minReplicas: 2
-  maxReplicas: 3
+  minReplicas: 1
+  maxReplicas: 4
   targetCPUUtilizationPercentage: 50
 ---
 
