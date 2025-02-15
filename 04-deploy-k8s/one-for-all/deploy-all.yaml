@@ -162,7 +162,7 @@ metadata:
 spec:
   ingressClassName: haproxy
   rules:
-    - host: ecommerce-frontend.danny.vn
+    - host: ecommerce.danny.vn
       http:
         paths:
           - backend:
