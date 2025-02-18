@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana-ingress
+  namespace: monitoring
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: grafana.danny.vn
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: danny-grafana
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
